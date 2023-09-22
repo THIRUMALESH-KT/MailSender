@@ -19,9 +19,8 @@ public class MailEntity {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public MailEntity(Long id, String userName, String mail, Long mobile, String password) {
+	public MailEntity(String userName, String mail, Long mobile, String password) {
 		super();
-		this.id = id;
 		this.userName = userName;
 		this.mail = mail;
 		this.mobile = mobile;
