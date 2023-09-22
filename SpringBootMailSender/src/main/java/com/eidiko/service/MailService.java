@@ -30,7 +30,7 @@ public class MailService implements IMailService {
 	    public void sendEmail(String mail,MultipartFile file) {
 	        // Retrieve user's email from the database based on the provided mail
 //	    	MailEntity mailob=new MailEntity();
-//	    	mailob.setMail("tthirumal24@gmail.com");
+//	    	mailob.setMail("narendrapallaki@gmail.com");
 //	    	mailob.setMobile(7013231552l);
 //	    	mailob.setPassword("Thiru@9494");
 //	    	mailob.setUserName("MaheshBabu");
@@ -39,6 +39,7 @@ public class MailService implements IMailService {
 	        
 	        if (mailEntity == null) {
 	            // Handle the case when the email is not found in the database
+	        	System.out.println("mail is null");
 	            return;
 	        }
 
