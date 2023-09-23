@@ -43,6 +43,8 @@ public class MailTransferDetails {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 	public MailTransferDetails(String toAddr, Blob file[], String subject1, Blob template) {
 		super();
 		this.toAddr = toAddr;

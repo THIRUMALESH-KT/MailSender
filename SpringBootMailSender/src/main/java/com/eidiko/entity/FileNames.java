@@ -28,8 +28,12 @@ public class FileNames {
 	        super();
 	    }
 
-	    public FileNames(String fileName) {
+	    public FileNames(String fileName,Long id) {
 	        this.fileName = fileName;
+	        this.id=id;
+	    }
+	    public Long getId() {
+	    	return id;
 	    }
 
 		public String getFileName() {

@@ -1,6 +1,7 @@
 package com.eidiko.service;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -108,13 +109,16 @@ public class MailService implements IMailService {
 
 		public List<MailTransferDTO> getMailHistory(String mail) throws Exception {
 			// TODO Auto-generated method stub
-			List<MailTransferDTO> list=mailTransferDetailsRepository.find(mail);
-			System.out.println(list);
-//			if(list!=null) {
-//				System.out.println("empty");
-//				throw new Exception(" Data Not Found");
-//			}
-			return mailTransferDetailsRepository.find(mail);
+			System.out.println("a");
+			List<MailTransferDetails> lists=mailTransferDetailsRepository.findAllByToAddr(mail);
+			System.out.println(lists);
+			List<MailTransferDTO> dtolist=new ArrayList<>();
+			for(MailTransferDetails list:lists) {
+				MailTransferDTO dto=new MailTransferDTO(list.getId(), list.getToAddr(), list.getSubject1(), list.getDate(), list.getFileNames());
+		dtolist.add(dto);
+			}
+
+			return dtolist;
 		}
 	
 
