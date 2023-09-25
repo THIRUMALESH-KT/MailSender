@@ -1,7 +1,9 @@
 package com.eidiko.controller;
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.security.auth.login.AccountNotFoundException;
@@ -30,26 +32,48 @@ public class MailController {
     private MailService mailService;
 
     @PostMapping("/Register")
-    public ResponseEntity<MailEntity> Register(@Valid @RequestBody UserDto user) throws Exception{
-		return new ResponseEntity<MailEntity>(mailService.register(user),HttpStatus.CREATED);	
+    public ResponseEntity<Map<String,Object>> Register(@Valid @RequestBody UserDto user) throws Exception{
+		Map<String,Object> map=new HashMap<>();
+		map.put("result", "success");
+		map.put("message", mailService.register(user));
+		map.put("status", String.valueOf(HttpStatus.CREATED));
+
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.CREATED);
     }
     @PutMapping("/update")
-    public ResponseEntity<MailEntity> update(@Valid @RequestBody UserDto user, @RequestParam String mail) throws AccountNotFoundException{
-    	return new ResponseEntity<MailEntity>(mailService.update(user,mail),HttpStatus.OK);
-    }
+    public ResponseEntity<Map<String,Object>> update(@Valid @RequestBody UserDto user, @RequestParam String mail) throws AccountNotFoundException{
+    	Map<String,Object> map=new HashMap<>();
+		map.put("result", "success");
+		map.put("message", mailService.update(user, mail));
+		map.put("status", String.valueOf(HttpStatus.OK));
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);   
+		}
     @GetMapping("/getEmailDetails")
-    public ResponseEntity<MailEntity> finEmail(@RequestParam String mail) throws AccountNotFoundException{
-    	return new ResponseEntity<MailEntity>(mailService.getMail(mail),HttpStatus.OK);
-    }
+    public ResponseEntity<Map<String,Object>> finEmail(@RequestParam String mail) throws AccountNotFoundException{
+    	Map<String,Object> map=new HashMap<>();
+		map.put("result", "success");
+		map.put("message", mailService.getMail(mail));
+		map.put("status", String.valueOf(HttpStatus.OK));
+
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);    }
     @PostMapping("/sendEmail")
-    public ResponseEntity<String> sendEmail(@RequestParam("mail") String mail,@RequestParam("subject")String subject, @RequestParam("file") MultipartFile[] file) throws AccountNotFoundException, FileNotFoundException, FileUploadException {
-    	mailService.sendEmail(mail,subject,file);
-        return ResponseEntity.ok("Email sent successfully.");
+    public ResponseEntity<Map<String,Object>> sendEmail(@RequestParam("mail") String mail,@RequestParam("subject")String subject, @RequestParam("file") MultipartFile[] file) throws AccountNotFoundException, FileNotFoundException, FileUploadException {
+    	Map<String,Object> map=new HashMap<>();
+		map.put("result", "success");
+		mailService.sendEmail(mail, subject, file);
+		map.put("message", "mail sucefully sent");
+		map.put("status", String.valueOf(HttpStatus.OK));
+
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
     }
     @GetMapping("/historyByMailId")
-    public ResponseEntity<List<MailTransferDTO>> getMailHistory(@RequestParam("mail") String mail) throws Exception{
-		return new ResponseEntity<List<MailTransferDTO>>(mailService.getMailHistory(mail),HttpStatus.OK);
-    	
+    public ResponseEntity<Map<String,Object>> getMailHistory(@RequestParam("mail") String mail) throws Exception{
+    	Map<String,Object> map=new HashMap<>();
+		map.put("result", "success");
+		map.put("message", mailService.getMailHistory(mail));
+		map.put("status", String.valueOf(HttpStatus.OK));
+
+		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);    	
     }
     
 }
